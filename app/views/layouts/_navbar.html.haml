@@ -1,0 +1,11 @@
+%nav.top-bar{data: {topbar: true} }
+  %ul.title-area
+    %li.name
+      %h1= link_to "My App", "#"
+    %li.toggle-topbar.menu-icon= link_to "Menu", "#"
+
+  %section.top-bar-section
+    %ul.right
+      - { Home:  root_path, About: about_path}.each do |page_name, page_path|
+        %li{class: current_page?(page_path) && "active" }= link_to page_name, page_path
+
