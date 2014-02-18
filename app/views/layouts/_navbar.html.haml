@@ -6,5 +6,5 @@
 
   %section.top-bar-section
     %ul.right
-      - { About: about_path}.each do |page_name, page_path|
+      - { About: about_path, "Sign up" => signup_path }.each do |page_name, page_path|
         %li{class: current_page?(page_path) && "active" }= link_to page_name, page_path

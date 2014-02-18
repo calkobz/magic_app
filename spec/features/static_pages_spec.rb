@@ -1,15 +1,5 @@
 require 'spec_helper'
 
-shared_examples_for "all pages" do |page_title|
-  it { should have_title(full_title(page_title)) }
-end
-
-shared_examples_for "pages with navbar" do
-  it { should have_selector('nav.top-bar') }
-  it { should have_link("My App") }
-  it { should have_link("About") }
-end
-
 feature "static_pages" do
   subject { page }
 
@@ -36,4 +26,5 @@ feature "static_pages" do
     it_behaves_like "all pages", "About"
     it_behaves_like "pages with navbar"
   end
+
 end
