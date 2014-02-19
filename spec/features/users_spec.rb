@@ -1,25 +1,42 @@
 require 'spec_helper'
 
-feature "signing up" do
+feature "user actions" do
 
   subject { page }
 
-  before { visit signup_path }
-  it_behaves_like "all pages", "Sign up"
-  it_behaves_like "pages with navbar"
+  let(:user) { FactoryGirl.create(:user) }
+  let(:submit) { 'Create account' }
 
-  scenario "with valid information" do
-    visit signup_path
+  feature "signing up" do
 
-    # within('#signup') do
-    #   fill_in 'Username', with: 'Some User'
-    #   fill_in 'Email', with: 'user@example.com'
-    #   fill_in 'Password', with: 'foobar'
-    #   fill_in 'Verify Password', with: 'foobar'
-    # end
+    before { visit signup_path }
+    it_behaves_like "all pages", "Sign up"
+    it_behaves_like "pages with navbar"
 
-    # click_link 'Sign up'
-    # expect(page).to have_content 'Success'
+    scenario "with valid information" do
+      visit signup_path
 
+      within('#signup') do
+        fill_in 'Name', with: user.name
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password
+        fill_in 'Confirm Password', with: 'foobar'
+      end
+
+      expect { click_button submit }.to change(User, :count).by(1)
+    end
+
+    scenario "with no information" do
+      visit signup_path
+      expect { click_button submit }.not_to change(User, :count)
+    end
+  end
+
+  feature "visiting profile page" do
+    before { visit user_path(user) }
+
+    it_behaves_like "pages with navbar"
+    it { should have_title(user.name) }
+    it { should have_content(user.email) }
   end
 end

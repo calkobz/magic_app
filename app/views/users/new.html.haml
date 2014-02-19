@@ -1,2 +1,19 @@
 = provide(:title, 'Sign up')
 %h1 Sign up
+.row
+  .large-8.small-centered.columns
+    = render 'shared/error_messages'
+    = form_for @user, html: {id: "signup"} do |f|
+      = f.label :name do
+        Name
+        = f.text_field :name
+      = f.label :email do
+        Email
+        = f.email_field :email
+      = f.label :password do
+        Password
+        = f.password_field :password
+      = f.label :password_confirmation do
+        Confirm Password
+        = f.password_field :password_confirmation
+      = f.submit "Create account", class: "button"
