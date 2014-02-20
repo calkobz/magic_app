@@ -12,6 +12,7 @@
 
   %body
     = render 'layouts/navbar'
+    = render 'shared/flash_messages'
     = yield
     .panel
       = debug(params) if Rails.env.development?
