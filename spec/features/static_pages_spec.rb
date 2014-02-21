@@ -10,6 +10,10 @@ feature "static_pages" do
       expect(page).to have_title(full_title("About"))
       click_link "My App"
       expect(page).to have_title(full_title(""))
+      click_link "Sign in"
+      expect(page).to have_title(full_title("Sign in"))
+      click_link "Sign up"
+      expect(page).to have_title(full_title("Sign up"))
     end
   end
 
@@ -17,14 +21,14 @@ feature "static_pages" do
     before { visit root_path }
 
     it_behaves_like "all pages", ""
-    it_behaves_like "pages with navbar"
+    it_behaves_like "signed out navbars"
   end
 
   feature "About page" do
     before { visit about_path }
 
     it_behaves_like "all pages", "About"
-    it_behaves_like "pages with navbar"
+    it_behaves_like "signed out navbars"
   end
 
 end

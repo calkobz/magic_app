@@ -23,7 +23,7 @@ feature "user actions" do
     end
 
     it_behaves_like "all pages", "Sign up"
-    it_behaves_like "pages with navbar"
+    it_behaves_like "signed out navbars"
 
     scenario "with valid information" do
       fill_in_signup
@@ -37,6 +37,7 @@ feature "user actions" do
       click_button submit
       expect(page).to have_title("exampleuser")
       expect(page).to have_selector('div', text: 'Welcome')
+      it_behaves_like "signed in navbars"
     end
 
     scenario "with no information" do
@@ -55,7 +56,7 @@ feature "user actions" do
   feature "visiting profile page" do
     before { visit user_path(user) }
 
-    it_behaves_like "pages with navbar"
+    # it_behaves_like "pages with navbar"
     it { should have_title user.name }
     it { should have_content user.email }
   end
